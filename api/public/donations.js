@@ -9,25 +9,17 @@ export default async function handler(req, res) {
   try {
     const limit = Math.min(Math.max(Number.parseInt(req.query?.limit ?? '25', 10) || 25, 1), 100);
     const projectSlug = typeof req.query?.project === 'string' ? req.query.project.trim() : '';
-
     const params = [limit];
     let projectFilter = '';
-    if (projectSlug) {
-      params.unshift(projectSlug);
-      projectFilter = 'AND p.slug = $1';
-    }
-
+    if (projectSlug) { params.unshift(projectSlug); projectFilter = 'AND p.slug = $1'; }
     const limitPlaceholder = projectSlug ? '$2' : '$1';
+
     const result = await pool.query(
-      `SELECT
-         d.donation_reference,
-         d.amount,
-         d.currency,
-         d.payment_method,
-         d.created_at,
-         p.name AS project_name,
-         p.slug AS project_slug
+      `SELECT d.amount, d.currency, d.created_at,
+              p.name AS project_name, p.slug AS project_slug,
+              dr.first_name, dr.country
        FROM donations d
+       JOIN donors dr ON dr.id = d.donor_id
        LEFT JOIN projects p ON p.id = d.project_id
        WHERE d.status = 'verified'
          ${projectFilter}
@@ -37,11 +29,10 @@ export default async function handler(req, res) {
     );
 
     const donations = result.rows.map((row) => ({
-      reference: row.donation_reference,
-      donor: 'Anonymous donor',
+      donor: row.first_name || 'Anonymous',
+      country: row.country || 'Country not displayed',
       amount: Number(row.amount),
       currency: row.currency,
-      paymentMethod: row.payment_method,
       project: row.project_name || 'Clean Water for Uganda',
       projectSlug: row.project_slug || null,
       receivedAt: row.created_at
