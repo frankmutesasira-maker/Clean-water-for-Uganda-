@@ -1,0 +1,12 @@
+{
+  "name": "clean-water-for-uganda",
+  "version": "3.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "vercel dev"
+  },
+  "dependencies": {
+    "pg": "^8.16.3"
+  }
+}
