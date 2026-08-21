@@ -9,7 +9,6 @@ CREATE TABLE IF NOT EXISTS donors (
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
-
 CREATE INDEX IF NOT EXISTS donors_email_idx ON donors (LOWER(email));
 
 CREATE TABLE IF NOT EXISTS projects (
@@ -50,10 +49,12 @@ CREATE TABLE IF NOT EXISTS donations (
   CONSTRAINT donations_method_valid CHECK (payment_method IN ('online','bank-transfer','remittance')),
   CONSTRAINT donations_status_valid CHECK (status IN ('pending','verified','failed','refunded'))
 );
-
 CREATE INDEX IF NOT EXISTS donations_status_idx ON donations(status);
 CREATE INDEX IF NOT EXISTS donations_created_idx ON donations(created_at DESC);
 CREATE INDEX IF NOT EXISTS donations_project_idx ON donations(project_id);
+CREATE UNIQUE INDEX IF NOT EXISTS donations_provider_tx_idx
+  ON donations(provider_transaction_id)
+  WHERE provider_transaction_id IS NOT NULL;
 
 CREATE TABLE IF NOT EXISTS donation_events (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -63,10 +64,8 @@ CREATE TABLE IF NOT EXISTS donation_events (
   payload JSONB,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
-
 CREATE UNIQUE INDEX IF NOT EXISTS donation_events_event_id_idx
-  ON donation_events(event_id)
-  WHERE event_id IS NOT NULL;
+  ON donation_events(event_id) WHERE event_id IS NOT NULL;
 
 CREATE TABLE IF NOT EXISTS bank_transfer_submissions (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -117,6 +116,8 @@ CREATE TABLE IF NOT EXISTS financial_ledger (
   description TEXT,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+CREATE UNIQUE INDEX IF NOT EXISTS financial_ledger_donation_entry_idx
+  ON financial_ledger(donation_id, entry_type);
 
 CREATE TABLE IF NOT EXISTS admin_users (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
