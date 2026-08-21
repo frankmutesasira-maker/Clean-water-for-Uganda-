@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Verified Donations | Clean Water for Uganda</title>
+  <meta name="description" content="View verified donations supporting Clean Water for Uganda water projects.">
+  <style>
+    body{font-family:system-ui,sans-serif;max-width:1000px;margin:auto;padding:24px;line-height:1.5}
+    header{display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap}
+    .live{font-weight:700}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:24px 0}
+    .stat,.card{border:1px solid #ddd;border-radius:14px;padding:16px}.amount{font-size:1.5rem;font-weight:800}
+    table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:12px;border-bottom:1px solid #ddd}
+    .muted{color:#666}.error{color:#b00020}
+  </style>
+</head>
+<body>
+<header><div><strong>Clean Water for Uganda</strong><h1>Verified Donations</h1></div><div class="live">● LIVE</div></header>
+<p class="muted">Verified donations are displayed automatically. Donor contact information and transaction references remain private.</p>
+<section class="grid" aria-label="Donation totals">
+  <div class="stat"><div class="muted">Verified donations shown</div><div class="amount" id="count">—</div></div>
+  <div class="stat"><div class="muted">Total displayed</div><div class="amount" id="total">—</div></div>
+</section>
+<div id="state" class="muted">Loading…</div>
+<table id="donations" hidden><thead><tr><th>Donor</th><th>Amount</th><th>Project</th><th>Method</th><th>Date</th></tr></thead><tbody></tbody></table>
+<script>
+const money=(n,c)=>new Intl.NumberFormat(undefined,{style:'currency',currency:c||'USD',maximumFractionDigits:2}).format(n);
+async function load(){
+  const state=document.querySelector('#state'), table=document.querySelector('#donations'), body=table.querySelector('tbody');
+  try{
+    const r=await fetch('/api/public-donations?limit=100',{cache:'no-store'});
+    if(!r.ok) throw new Error('Unable to load donations');
+    const data=await r.json();
+    body.innerHTML=''; let total=0;
+    for(const d of data.donations){
+      total+=Number(d.amount||0);
+      const tr=document.createElement('tr');
+      tr.innerHTML=`<td>${d.donorDisplay||'Anonymous donor'}</td><td>${money(d.amount,d.currency)}</td><td>${d.project||'Clean Water for Uganda'}</td><td>${String(d.paymentMethod||'').replace('-', ' ')}</td><td>${new Date(d.receivedAt).toLocaleDateString()}</td>`;
+      body.appendChild(tr);
+    }
+    document.querySelector('#count').textContent=data.donations.length;
+    document.querySelector('#total').textContent=money(total,data.donations[0]?.currency||'USD');
+    state.textContent=data.donations.length?'Latest verified donations':'No verified donations have been published yet.';
+    table.hidden=!data.donations.length;
+  }catch(e){state.className='error';state.textContent=e.message;}
+}
+load(); setInterval(load,15000);
+</script>
+</body>
+</html>
