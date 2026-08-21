@@ -1,0 +1,1 @@
+export default async function handler(req,res){if(req.method!=='GET')return res.status(405).json({error:'Method not allowed'});/* Production: query PostgreSQL for VERIFIED donations with public_display=true. Never expose email, phone, last name, bank data or transaction references. */return res.status(200).json({total:0,donors:0,projects:1,donations:[]});}
