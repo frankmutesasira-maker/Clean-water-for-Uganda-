@@ -1,1 +1,139 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Donate | Clean Water for Uganda</title><style>body{font-family:system-ui;margin:0;background:#f8fafc;color:#0f172a}.wrap{max-width:760px;margin:50px auto;padding:20px}.card{background:#fff;padding:28px;border-radius:16px;border:1px solid #e2e8f0}label{display:block;font-weight:700;margin:14px 0 6px}input,select,button{width:100%;padding:13px;border:1px solid #cbd5e1;border-radius:9px;font:inherit}button{background:#063b5c;color:#fff;font-weight:800;margin-top:20px;cursor:pointer}.notice{background:#eff6ff;padding:15px;border-radius:10px;margin:18px 0}</style></head><body><div class="wrap"><a href="/">← Home</a><h1>Support clean water in Uganda</h1><div class="card"><form id="form"><label>First name<input name="firstName" required></label><label>Last name<input name="lastName" required></label><label>Email<input type="email" name="email" required></label><label>Country<input name="country"></label><label>Amount (USD)<input type="number" name="amount" min="1" step="0.01" required></label><label>Project<select name="designation"><option value="where-needed-most">Where needed most</option><option value="boreholes">Boreholes</option><option value="schools">Schools</option><option value="communities">Communities</option></select></label><label>Payment method<select name="payment_method"><option value="bank-transfer">Bank transfer</option><option value="remittance">Remittance</option><option value="online">Online payment</option></select></label><div class="notice">Your donation is recorded as <strong>pending</strong> until payment is independently verified.</div><button>Continue donation</button></form><p id="msg"></p></div></div><script>document.getElementById('form').addEventListener('submit',async e=>{e.preventDefault();const f=new FormData(e.target);const payload={amount:Number(f.get('amount')),currency:'USD',frequency:'one-time',designation:f.get('designation'),payment_method:f.get('payment_method'),donor:{firstName:f.get('firstName'),lastName:f.get('lastName'),email:f.get('email'),country:f.get('country')}};const r=await fetch('/api/create-donation',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const d=await r.json();if(!r.ok){document.getElementById('msg').textContent=d.error||'Unable to continue.';return}location.href=d.next==='bank-transfer'?'/donate/bank-transfer.html?reference='+encodeURIComponent(d.reference):'/donate/remittance.html?reference='+encodeURIComponent(d.reference)})</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Donate to Clean Water for Uganda and help fund a 100-metre community borehole.">
+  <title>Donate | Clean Water for Uganda</title>
+  <style>
+    body{font-family:system-ui,-apple-system,sans-serif;margin:0;background:#f8fafc;color:#0f172a}
+    .wrap{max-width:760px;margin:50px auto;padding:20px}
+    .card{background:#fff;padding:28px;border-radius:16px;border:1px solid #e2e8f0;box-shadow:0 8px 30px rgba(15,23,42,.05)}
+    label{display:block;font-weight:700;margin:14px 0 6px}
+    input,select,button{width:100%;box-sizing:border-box;padding:13px;border:1px solid #cbd5e1;border-radius:9px;font:inherit}
+    button{background:#063b5c;color:#fff;font-weight:800;margin-top:20px;cursor:pointer}
+    button:disabled{opacity:.6;cursor:not-allowed}
+    .notice{background:#eff6ff;padding:15px;border-radius:10px;margin:18px 0}
+    .success{background:#ecfdf5;color:#065f46;padding:15px;border-radius:10px;margin-top:18px}
+    .error{background:#fef2f2;color:#991b1b;padding:15px;border-radius:10px;margin-top:18px}
+    .small{color:#64748b;font-size:.92rem}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a href="/">← Home</a>
+    <h1>Support clean water in Uganda</h1>
+    <p>Help Clean Water for Uganda fund a <strong>100-metre borehole</strong> with a hand pump. The current fundraising target is <strong>$7,000</strong>.</p>
+
+    <div class="card">
+      <form id="donation-form" novalidate>
+        <label>First name<input name="firstName" autocomplete="given-name" required></label>
+        <label>Last name<input name="lastName" autocomplete="family-name" required></label>
+        <label>Email<input type="email" name="email" autocomplete="email" required></label>
+        <label>Phone / WhatsApp<input name="phone" autocomplete="tel" placeholder="Optional"></label>
+        <label>Country<input name="country" autocomplete="country-name"></label>
+        <label>Amount (USD)<input type="number" name="amount" min="1" max="10000000" step="0.01" required></label>
+        <label>Donation frequency
+          <select name="frequency">
+            <option value="one-time">One-time</option>
+            <option value="monthly">Monthly</option>
+          </select>
+        </label>
+        <label>Project
+          <select name="designation">
+            <option value="borehole-100m">100-metre community borehole</option>
+            <option value="where-needed-most">Where needed most</option>
+          </select>
+        </label>
+        <label>Payment method
+          <select name="payment_method" id="payment-method">
+            <option value="bank-transfer">Bank transfer</option>
+            <option value="remittance">WorldRemit</option>
+            <option value="online">Online payment</option>
+          </select>
+        </label>
+        <label style="font-weight:400"><input type="checkbox" name="anonymous" value="true" style="width:auto;margin-right:8px"> Keep my name anonymous on public donor recognition.</label>
+
+        <div class="notice">
+          Your donation is recorded as <strong>pending</strong> until payment is independently verified. Online checkout will become available after the payment provider is configured.
+        </div>
+
+        <button id="submit-button" type="submit">Continue donation</button>
+        <div id="msg" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('donation-form');
+    const button = document.getElementById('submit-button');
+    const msg = document.getElementById('msg');
+
+    function showMessage(text, type) {
+      msg.className = type;
+      msg.textContent = text;
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      showMessage('', '');
+      button.disabled = true;
+      button.textContent = 'Submitting…';
+
+      try {
+        const f = new FormData(form);
+        const paymentMethod = f.get('payment_method');
+        const payload = {
+          amount: Number(f.get('amount')),
+          currency: 'USD',
+          frequency: f.get('frequency'),
+          designation: f.get('designation'),
+          payment_method: paymentMethod,
+          donor: {
+            firstName: String(f.get('firstName') || '').trim(),
+            lastName: String(f.get('lastName') || '').trim(),
+            email: String(f.get('email') || '').trim(),
+            phone: String(f.get('phone') || '').trim(),
+            country: String(f.get('country') || '').trim(),
+            anonymous: f.get('anonymous') === 'true'
+          }
+        };
+
+        const response = await fetch('/api/create-donation', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+          body: JSON.stringify(payload)
+        });
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+          throw new Error(data.error || 'Unable to create the donation.');
+        }
+
+        if (!data.reference) throw new Error('The donation reference was not returned.');
+
+        if (data.next === 'bank-transfer') {
+          location.href = '/donate/bank-transfer.html?reference=' + encodeURIComponent(data.reference);
+          return;
+        }
+
+        if (data.next === 'remittance') {
+          location.href = '/donate/remittance.html?reference=' + encodeURIComponent(data.reference);
+          return;
+        }
+
+        if (paymentMethod === 'online') {
+          throw new Error('Online checkout is not configured yet. Please choose Bank transfer or WorldRemit.');
+        }
+
+        location.href = '/donate/status.html?reference=' + encodeURIComponent(data.reference);
+      } catch (error) {
+        showMessage(error.message || 'Unable to continue. Please try again.', 'error');
+      } finally {
+        button.disabled = false;
+        button.textContent = 'Continue donation';
+      }
+    });
+  </script>
+</body>
+</html>
