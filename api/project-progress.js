@@ -1,0 +1,1 @@
+export default async function handler(req,res){if(req.method!=='GET')return res.status(405).json({error:'Method not allowed'});const target=7000;/* Production: SUM only VERIFIED donations for the project. */const raised=0;return res.status(200).json({target,raised,remaining:target-raised,percentage:0,status:'Fundraising'});}
