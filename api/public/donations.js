@@ -8,7 +8,11 @@ export default async function handler(req, res) {
 
   try {
     const limit = Math.min(Math.max(Number.parseInt(req.query?.limit ?? '25', 10) || 25, 1), 100);
-    const projectSlug = typeof req.query?.project === 'string' ? req.query.project.trim() : '';
+    const requestedSlug = typeof req.query?.project === 'string' ? req.query.project.trim() : '';
+    const projectSlug = requestedSlug === 'community-borehole-project' || requestedSlug === '100-metre-community-borehole'
+      ? '100-metre-borehole'
+      : requestedSlug;
+
     const params = [limit];
     let projectFilter = '';
     if (projectSlug) { params.unshift(projectSlug); projectFilter = 'AND p.slug = $1'; }
@@ -22,6 +26,7 @@ export default async function handler(req, res) {
        JOIN donors dr ON dr.id = d.donor_id
        LEFT JOIN projects p ON p.id = d.project_id
        WHERE d.status = 'verified'
+         AND COALESCE(d.public_display, TRUE) = TRUE
          ${projectFilter}
        ORDER BY d.verified_at DESC NULLS LAST, d.created_at DESC
        LIMIT ${limitPlaceholder}`,
