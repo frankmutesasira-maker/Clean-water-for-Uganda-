@@ -1,0 +1,1 @@
+export default async function handler(req,res){if(req.method!=='GET')return res.status(405).json({error:'Method not allowed'});/* Production: aggregate VERIFIED ledger records. */return res.status(200).json({verified_amount:0,verified_donors:0,projects:1});}
