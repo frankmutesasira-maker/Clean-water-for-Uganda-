@@ -1,0 +1,4 @@
+Contact: mailto:frankmutesasira@gmail.com
+Expires: 2027-09-16T00:00:00Z
+Preferred-Languages: en
+Canonical: https://www.cleanwaterforuganda.org/.well-known/security.txt
