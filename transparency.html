@@ -1,1 +1,97 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Transparency | Clean Water for Uganda</title></head><body><main style="max-width:900px;margin:50px auto;font-family:Arial;padding:20px"><a href="index.html">← Home</a><h1>Transparency</h1><p>We distinguish submitted donations from verified donations. Only verified donations affect public campaign totals.</p><div id="project">Loading…</div><script>fetch('/api/project-progress').then(r=>r.json()).then(d=>document.getElementById('project').innerHTML='<h2>100-Metre Community Borehole</h2><p>Target: $'+d.target.toLocaleString()+'</p><p>Verified raised: $'+d.raised.toLocaleString()+'</p><p>Remaining: $'+d.remaining.toLocaleString()+'</p><p>Progress: '+d.percentage+'%</p><p>Status: '+d.status+'</p>')</script></main></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Transparency & Accountability | Clean Water for Uganda</title>
+<meta name="description" content="Learn how Clean Water for Uganda approaches project verification, donation records, financial accountability, project evidence and donor privacy.">
+<meta name="robots" content="index,follow">
+<style>
+:root{--b:#0879d1;--d:#063b67;--i:#123047;--bg:#f5f9fc;--l:#dce8f0;--g:#0a8f5a}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;color:var(--i);background:var(--bg);line-height:1.65}
+header{background:#fff;border-bottom:1px solid var(--l);padding:18px 6%;display:flex;justify-content:space-between;gap:18px;align-items:center;flex-wrap:wrap}
+header a{color:var(--d);text-decoration:none;font-weight:800}.nav{display:flex;gap:16px;flex-wrap:wrap;font-weight:600}
+main{max-width:1100px;margin:auto;padding:45px 6%}.hero,.card{background:#fff;border:1px solid var(--l);border-radius:16px;padding:28px;margin-bottom:22px;box-shadow:0 5px 22px #073b6710}
+.hero{background:linear-gradient(135deg,#e8f6ff,#fff)}h1,h2,h3{color:var(--d)}h1{font-size:clamp(2.2rem,5vw,4rem);line-height:1.05;margin:10px 0 15px}.ey{color:var(--b);font-weight:800;letter-spacing:.05em}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.badge{display:inline-block;background:#e9f8f1;color:var(--g);padding:5px 10px;border-radius:999px;font-weight:800;font-size:.85rem}.steps{counter-reset:step}.step{position:relative;padding-left:52px}.step:before{counter-increment:step;content:counter(step);position:absolute;left:0;top:0;width:34px;height:34px;border-radius:50%;background:var(--b);color:#fff;text-align:center;line-height:34px;font-weight:800}.btn{display:inline-block;background:var(--b);color:#fff;text-decoration:none;padding:11px 18px;border-radius:8px;font-weight:800}.small{font-size:.9rem;color:#526b7b}footer{background:var(--d);color:#fff;padding:35px 6%}footer a{color:#fff}@media(max-width:750px){.grid{grid-template-columns:1fr}.nav{width:100%}}
+</style>
+</head>
+<body>
+<header>
+<a href="index.html">CLEAN WATER FOR UGANDA</a>
+<nav class="nav">
+<a href="about.html">About</a><a href="projects.html">Projects</a><a href="impact.html">Impact</a><a href="transparency.html">Transparency</a><a href="contact.html">Contact</a><a class="btn" href="donate.html">Donate</a>
+</nav>
+</header>
+<main>
+<section class="hero">
+<div class="ey">ACCOUNTABILITY • EVIDENCE • DONOR PRIVACY</div>
+<h1>Trust is built with evidence.</h1>
+<p>We want donors, partners and communities to understand what we are fundraising for, how projects are verified, and what information we publish. We will separate fundraising claims from verified project results and update this page as documented information becomes available.</p>
+<span class="badge">Verified information only</span>
+</section>
+
+<section class="card">
+<h2>Our transparency commitments</h2>
+<div class="grid">
+<div><h3>1. Clear project purpose</h3><p>Each fundraising campaign should identify the project, intended location or community, target amount and the main activities the funds are expected to support.</p></div>
+<div><h3>2. Verification before reporting impact</h3><p>We will not present targets, estimates or unverified reports as completed impact. Project results will be updated when supporting evidence is available.</p></div>
+<div><h3>3. Financial accountability</h3><p>Donation records are intended to move through review before they are counted as verified campaign funds. Project spending should be supported by appropriate records such as receipts, invoices or payment evidence.</p></div>
+<div><h3>4. Evidence from the field</h3><p>Where available and appropriate, we will publish project photos, water-testing information, implementation updates, completion evidence and other documentation connected to the project.</p></div>
+<div><h3>5. Donor privacy</h3><p>Donors should never be required to publish their identity. If a donor chooses the public donation-wall option, only the information described on the donation form should be displayed.</p></div>
+<div><h3>6. Corrections</h3><p>If published information is found to be inaccurate, outdated or incomplete, we will correct or update it rather than presenting an unsupported claim as fact.</p></div>
+</div>
+</section>
+
+<section class="card">
+<h2>How a donation is treated</h2>
+<div class="steps">
+<div class="step"><h3>Donation submitted</h3><p>A donor provides the requested donation information and selects a payment method.</p></div>
+<div class="step"><h3>Pending review</h3><p>The submission is treated as pending until the contribution can be matched and reviewed.</p></div>
+<div class="step"><h3>Finance verification</h3><p>Payment evidence and relevant donation information are checked before the amount is included in verified campaign reporting.</p></div>
+<div class="step"><h3>Project reporting</h3><p>Verified campaign information can be reflected in project progress. Supporting project evidence is added as implementation proceeds.</p></div>
+</div>
+</section>
+
+<section class="card">
+<h2>Featured project: 100-Metre Community Borehole</h2>
+<p><strong>Fundraising target: $8,500</strong></p>
+<p>The current target is a fundraising goal, not a claim that $8,500 has already been raised or spent. The planned scope includes drilling, casing, borehole development, water testing, pump installation and related infrastructure, subject to site assessment and final project costing.</p>
+<div id="project"><p>Loading verified campaign information…</p></div>
+<p><a class="btn" href="donate.html">Support the project</a> <a class="btn" href="projects.html">View projects</a></p>
+</section>
+
+<section class="card">
+<h2>What we publish</h2>
+<ul>
+<li>Project purpose and fundraising target.</li>
+<li>Verified fundraising progress when reliable records are available.</li>
+<li>Project location and implementation updates when it is safe and appropriate to publish them.</li>
+<li>Relevant water-testing and completion evidence when available.</li>
+<li>Selected financial and project documentation that can be shared without exposing private donor or beneficiary information.</li>
+</ul>
+<p class="small">We will not publish donor addresses, private contact information, payment credentials or other sensitive personal information. Beneficiary information and images should only be shared where appropriate consent and safeguarding requirements have been met.</p>
+</section>
+
+<section class="card">
+<h2>Questions about accountability?</h2>
+<p>Donors and partners can contact us with questions about a project, fundraising record or published information. We welcome reasonable requests for clarification and corrections.</p>
+<p><a class="btn" href="contact.html">Contact Clean Water for Uganda</a></p>
+</section>
+</main>
+<footer>
+<strong>CLEAN WATER FOR UGANDA</strong>
+<p>Safe Water. Brighter Futures.</p>
+<p><a href="index.html">Home</a> · <a href="donate.html">Donate</a> · <a href="about.html">About</a> · <a href="projects.html">Projects</a> · <a href="impact.html">Impact</a></p>
+<p class="small">© 2026 Clean Water for Uganda. Transparency information is updated as verified records become available.</p>
+</footer>
+<script>
+async function loadProject(){
+try{
+const r=await fetch('/api/project-progress'); const d=await r.json();
+document.getElementById('project').innerHTML='<p><strong>Verified raised:</strong> $'+Number(d.raised||0).toLocaleString()+' · <strong>Remaining:</strong> $'+Number(d.remaining||0).toLocaleString()+' · <strong>Progress:</strong> '+Number(d.percentage||0)+'%</p><p><strong>Status:</strong> '+(d.status||'Pending verified campaign data')+'</p>';
+}catch(e){document.getElementById('project').innerHTML='<p>Verified campaign progress will appear here when the project data service is available.</p>'}
+}
+loadProject();
+</script>
+</body>
+</html>
