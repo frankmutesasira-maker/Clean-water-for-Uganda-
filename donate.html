@@ -1,1 +1,78 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Donate | Clean Water for Uganda</title><style>body{font-family:Arial;margin:0;background:#f5f9fc;color:#123047}main{max-width:850px;margin:40px auto;padding:24px}.card{background:#fff;padding:28px;border-radius:14px;border:1px solid #dce8f0;margin-bottom:20px}label{display:block;font-weight:700;margin-top:14px}input,select{width:100%;padding:12px;margin-top:6px;border:1px solid #ccdce7;border-radius:7px}button{margin-top:20px;padding:13px 22px;background:#0879d1;color:#fff;border:0;border-radius:7px;font-weight:700}.notice{background:#eef8ff;padding:15px;border-radius:8px}.nav{padding:18px 6%;background:#063b67;color:#fff}.nav a{color:#fff;margin-right:18px}.method{padding:18px;border:1px solid #dce8f0;border-radius:10px;margin-top:14px}</style></head><body><header class="nav"><a href="index.html">Clean Water for Uganda</a> <a href="projects.html">Projects</a> <a href="donations.html">Donations</a></header><main><h1>Help Bring Clean Water to Uganda</h1><div class="card"><h2>100-Metre Community Borehole</h2><p><strong>Project target: $8,500</strong></p><p>Your support helps fund drilling, casing, borehole development, water testing, pump installation and the infrastructure needed to provide reliable clean water to an underserved community.</p><p><strong>Every contribution helps move the project toward completion.</strong></p></div><div class="card"><h2>Donation details</h2><form id="donationForm"><label>First name<input name="first_name" required></label><label>Last name<input name="last_name" required></label><label>Email<input type="email" name="email" required></label><label>Phone / WhatsApp<input name="phone"></label><label>Country<input name="country" required></label><label>Donation amount (USD)<input type="number" min="1" step="0.01" name="amount" required></label><label>Frequency<select name="frequency"><option>one-time</option><option>monthly</option></select></label><label>Project<select name="project"><option value="100-metre-community-borehole">100-Metre Community Borehole — $8,500</option></select></label><label>Payment method<select name="payment_method"><option value="western_union">Western Union</option><option value="moneygram">MoneyGram</option><option value="mtn_mobile_money">MTN Mobile Money</option></select></label><label><input type="checkbox" name="public_display" value="true" style="width:auto"> Display my first name, country and amount on the public donation wall</label><button type="submit">Continue donation</button></form><div id="result"></div></div><div class="card"><h2>Ways to donate</h2><div class="method"><h3>Western Union</h3><p>Recipient: Mutesasira Frank<br>Kampala, Uganda</p></div><div class="method"><h3>MoneyGram</h3><p>Recipient: Mutesasira Frank<br>Kampala, Uganda</p></div><div class="method"><h3>MTN Mobile Money</h3><p>Number: 0762435555<br>Name: Mutesasira Frank<br>Provider: MTN Uganda</p></div></div></main><script>document.getElementById('donationForm').onsubmit=async e=>{e.preventDefault();const body=Object.fromEntries(new FormData(e.target));body.public_display=!!body.public_display;const r=await fetch('/api/create-donation',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});const d=await r.json();document.getElementById('result').innerHTML='<div class="notice">'+(d.message||('Donation reference: '+d.reference))+'</div>'}</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Donate to Clean Water for Uganda | Safe Water. Brighter Futures.</title>
+<meta name="description" content="Support Clean Water for Uganda through Western Union, MoneyGram or MTN Mobile Money. Help fund the 100-Metre Community Borehole project.">
+<style>
+body{font-family:Arial,sans-serif;margin:0;background:#f5f9fc;color:#123047;line-height:1.6}
+main{max-width:900px;margin:40px auto;padding:24px}.card{background:#fff;padding:28px;border-radius:14px;border:1px solid #dce8f0;margin-bottom:20px}
+label{display:block;font-weight:700;margin-top:14px}input,select{box-sizing:border-box;width:100%;padding:12px;margin-top:6px;border:1px solid #ccdce7;border-radius:7px;font:inherit}
+button{margin-top:20px;padding:13px 22px;background:#0879d1;color:#fff;border:0;border-radius:7px;font-weight:700;cursor:pointer}.notice{background:#eef8ff;padding:15px;border-radius:8px;margin-top:18px}
+.error{background:#fff1f1;border:1px solid #efb4b4;color:#7b1d1d;padding:15px;border-radius:8px;margin-top:18px}.nav{padding:18px 6%;background:#063b67;color:#fff}.nav a{color:#fff;margin-right:18px;text-decoration:none}
+.method{padding:18px;border:1px solid #dce8f0;border-radius:10px;margin-top:14px}.small{font-size:.92rem;color:#506779}
+</style>
+</head>
+<body>
+<header class="nav"><a href="index.html">Clean Water for Uganda</a><a href="projects.html">Projects</a><a href="transparency.html">Transparency</a><a href="donations.html">Donations</a></header>
+<main>
+<h1>Help Bring Clean Water to Uganda</h1>
+<div class="card">
+<h2>100-Metre Community Borehole</h2>
+<p><strong>Fundraising target: $8,500</strong></p>
+<p>This is a fundraising target, not a claim that the full amount has already been raised or spent. Planned work includes drilling, casing, borehole development, water testing, pump installation and related infrastructure, subject to site assessment and final costing.</p>
+</div>
+
+<div class="card">
+<h2>Record your intended donation</h2>
+<p>Use this form to create a donation reference before or while completing your contribution. <strong>This form does not process a card payment.</strong> After submitting it, complete the donation using the selected method below and keep your reference for verification.</p>
+<form id="donationForm">
+<label>First name<input name="first_name" autocomplete="given-name" required maxlength="80"></label>
+<label>Last name<input name="last_name" autocomplete="family-name" required maxlength="80"></label>
+<label>Email<input type="email" name="email" autocomplete="email" required maxlength="200"></label>
+<label>Phone / WhatsApp<input name="phone" autocomplete="tel" maxlength="40"></label>
+<label>Country<input name="country" autocomplete="country-name" required maxlength="100"></label>
+<label>Donation amount (USD)<input type="number" min="1" max="1000000" step="0.01" name="amount" required></label>
+<label>Frequency<select name="frequency"><option value="one-time">One-time</option><option value="monthly">Monthly</option></select></label>
+<label>Project<select name="project"><option value="100-metre-community-borehole">100-Metre Community Borehole — $8,500 target</option></select></label>
+<label>Payment method<select name="payment_method"><option value="western_union">Western Union</option><option value="moneygram">MoneyGram</option><option value="mtn_mobile_money">MTN Mobile Money</option></select></label>
+<label style="font-weight:400"><input type="checkbox" name="public_display" value="true" style="width:auto"> Display my first name, country and amount on the public donation wall</label>
+<button id="submitButton" type="submit">Create donation reference</button>
+</form>
+<div id="result" aria-live="polite"></div>
+<p class="small">Privacy: we use the information submitted here to record and verify donations and maintain accountability. We do not publish your email, phone number or payment credentials. Public-wall display is optional.</p>
+</div>
+
+<div class="card">
+<h2>Ways to donate</h2>
+<div class="method"><h3>Western Union</h3><p>Recipient: <strong>Mutesasira Frank</strong><br>Kampala, Uganda</p></div>
+<div class="method"><h3>MoneyGram</h3><p>Recipient: <strong>Mutesasira Frank</strong><br>Kampala, Uganda</p></div>
+<div class="method"><h3>MTN Mobile Money</h3><p>Number: <strong>0762435555</strong><br>Name: <strong>Mutesasira Frank</strong><br>Provider: MTN Uganda</p></div>
+<p class="small">After completing a remittance, keep the transfer/reference information so the finance team can match it to your donation record. Never send passwords, PINs or card security codes through this website.</p>
+</div>
+
+<div class="card"><h2>Need to check a donation?</h2><p>Use your donation reference to check its recorded verification status.</p>
+<form id="statusForm"><label>Donation reference<input name="reference" placeholder="CWU-2026-XXXXXXXX" pattern="CWU-\d{4}-[A-Z0-9]{8}" required></label><button type="submit">Check status</button></form><div id="statusResult" aria-live="polite"></div></div>
+</main>
+<script>
+const result=document.getElementById('result');
+document.getElementById('donationForm').onsubmit=async e=>{
+ e.preventDefault(); const button=document.getElementById('submitButton'); button.disabled=true; result.textContent='Submitting…';
+ try{
+  const body=Object.fromEntries(new FormData(e.target)); body.public_display=body.public_display==='true';
+  const r=await fetch('/api/create-donation',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  const d=await r.json(); if(!r.ok) throw new Error(d.error||'Unable to create donation reference.');
+  result.innerHTML='<div class="notice"><strong>Reference: '+d.reference+'</strong><br>'+d.message+'</div>';
+  e.target.reset();
+ }catch(err){result.innerHTML='<div class="error">'+err.message+'</div>'}finally{button.disabled=false}
+};
+document.getElementById('statusForm').onsubmit=async e=>{
+ e.preventDefault(); const out=document.getElementById('statusResult'); const ref=new FormData(e.target).get('reference').trim().toUpperCase(); out.textContent='Checking…';
+ try{
+  const r=await fetch('/api/donation-status?reference='+encodeURIComponent(ref)); const d=await r.json();
+  if(!r.ok) throw new Error(d.message||'Status unavailable.');
+  out.innerHTML='<div class="notice"><strong>'+d.reference+'</strong><br>Status: '+d.status+'<br>Amount: $'+Number(d.amount).toFixed(2)+'<br>Frequency: '+d.frequency+'</div>';
+ }catch(err){out.innerHTML='<div class="error">'+err.message+'</div>'}
+};
+</script>
+</body></html>
