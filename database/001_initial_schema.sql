@@ -5,4 +5,5 @@ create table if not exists donations(id uuid primary key default gen_random_uuid
 create table if not exists ledger(id uuid primary key default gen_random_uuid(),donation_id uuid not null references donations(id),entry_type text not null,amount_usd numeric(12,2) not null,created_at timestamptz not null default now());
 create table if not exists receipts(id uuid primary key default gen_random_uuid(),donation_id uuid unique not null references donations(id),receipt_number text unique not null,issued_at timestamptz not null default now());
 create table if not exists audit_log(id uuid primary key default gen_random_uuid(),actor text,action text not null,entity_type text not null,entity_id uuid,metadata jsonb,created_at timestamptz not null default now());
-insert into projects(slug,name,target_usd) values('100-metre-community-borehole','100-Metre Community Borehole',7000) on conflict(slug) do nothing;
+insert into projects(slug,name,target_usd) values('100-metre-community-borehole','100-Metre Community Borehole',8500)
+on conflict(slug) do update set target_usd=excluded.target_usd;
