@@ -29,8 +29,8 @@
 .band{background:#eaf6ff}.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.step{position:relative;padding:24px;background:#fff;border-radius:14px;border:1px solid var(--line)}.step b{display:block;color:var(--blue);font-size:.8rem;letter-spacing:.08em;margin-bottom:8px}
 .cta{background:linear-gradient(135deg,var(--deep),#0879d1);color:#fff;border-radius:22px;padding:50px}.cta h2{color:#fff;max-width:700px}.cta p{max-width:700px;opacity:.9}.cta .btn{background:#fff;color:var(--deep);border-color:#fff}
 .footer{background:#052d4f;color:#fff;padding:45px 5%}.footer-inner{max-width:1220px;margin:auto;display:flex;justify-content:space-between;gap:30px}.footer a{opacity:.9}.small{font-size:.86rem;opacity:.75}
-.mobile-menu{display:none}
-@media(max-width:900px){.links{display:none}.mobile-menu{display:block;font-weight:900;color:var(--deep)}.hero{grid-template-columns:1fr;padding-top:52px}.hero-photo{min-height:400px}.grid{grid-template-columns:1fr 1fr}.stats .section{grid-template-columns:1fr 1fr}.feature{grid-template-columns:1fr}.steps{grid-template-columns:1fr 1fr}.footer-inner{flex-direction:column}}
+.mobile-menu{display:none}.mobile-nav{display:none}.mobile-nav summary{list-style:none;cursor:pointer;font-weight:900;color:var(--deep)}.mobile-nav summary::-webkit-details-marker{display:none}.mobile-nav-links{position:absolute;right:5%;top:68px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;display:grid;gap:8px;min-width:190px;box-shadow:0 15px 35px rgba(6,59,103,.15)}.mobile-nav-links a{padding:10px 12px;font-weight:800}.mobile-nav-links .btn{color:#fff}
+@media(max-width:900px){.links{display:none}.mobile-nav{display:block;position:relative}.hero{grid-template-columns:1fr;padding-top:52px}.hero-photo{min-height:400px}.grid{grid-template-columns:1fr 1fr}.stats .section{grid-template-columns:1fr 1fr}.feature{grid-template-columns:1fr}.steps{grid-template-columns:1fr 1fr}.footer-inner{flex-direction:column}}
 @media(max-width:600px){.hero h1{font-size:3.35rem}.hero-photo{min-height:330px}.section{padding:55px 5%}.grid,.stats .section,.steps{grid-template-columns:1fr}.actions a{width:100%;text-align:center}.trust{gap:12px;display:block}.trust div{margin:7px 0}}
 </style>
 </head>
@@ -40,7 +40,7 @@
 <nav class="links" aria-label="Main navigation">
 <a href="about.html">About</a><a href="projects.html">Projects</a><a href="impact.html">Impact</a><a href="transparency.html">Transparency</a><a href="contact.html">Contact</a><a href="donate.html" class="btn">Donate</a>
 </nav>
-<div class="mobile-menu">Menu</div>
+<details class="mobile-nav"><summary>Menu</summary><div class="mobile-nav-links"><a href="about.html">About</a><a href="projects.html">Projects</a><a href="impact.html">Impact</a><a href="transparency.html">Transparency</a><a href="contact.html">Contact</a><a href="donate.html" class="btn">Donate</a></div></details>
 </header>
 
 <main>
