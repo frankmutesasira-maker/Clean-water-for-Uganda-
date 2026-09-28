@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.cleanwaterforuganda.org/sitemap.xml
